@@ -1,14 +1,14 @@
 _Работаю с операционной системой Ubuntu 16.04_
 
-##1. Установка mrec
+## 1. Установка mrec
 
-###1.1 Ставим setuptools
+### 1.1 Ставим setuptools
 
 ```
 sudo apt install python3-setuptools
 ```
 
-###1.2 Ставим mrec для python3
+### 1.2 Ставим mrec для python3
 
 ```
 git clone https://github.com/inpefess/mrec
@@ -18,24 +18,24 @@ python setup.py install --install-scripts ~/scripts
 sudo mv ~/scripts/* /usr/local/sbin
 ```
 
-##2. Обработка данных MovieLens 100K
+## 2. Обработка данных MovieLens 100K
 
-###2.1 Скачиваем и разорхивируем архив с данными
+### 2.1 Скачиваем и разорхивируем архив с данными
 
 ```
 wget http://files.grouplens.org/datasets/movielens/ml-100k.zip
 unzip ml-100k.zip
 ```
 
-###2.2 Подготавливаем данные
+### 2.2 Подготавливаем данные
 
 `mrec_prepare --dataset ml-100k/u.data --outdir splits --rating_thresh 4 --test_size 0.5 --binarize`
 
-###2.3 Запускаем ipcluster
+### 2.3 Запускаем ipcluster
 
 `ipcluster start -n4 --daemonize`
 
-###2.4 Обучаем и предсказываем при помощи модели knn
+### 2.4 Обучаем и предсказываем при помощи модели knn
 
 ```
 mrec_train -n4 --model knn --input_format tsv --train "splits/u.data.train.*" --outdir models-knn
@@ -53,7 +53,7 @@ prec@15        0.3237 +/- 0.0006
 prec@20        0.2999 +/- 0.0005
 ```
 
-###2.5 Обучаем и предсказываем при помощи модели popularity
+### 2.5 Обучаем и предсказываем при помощи модели popularity
 
 ```
 mrec_train -n4 --model knn --input_format tsv --train "splits/u.data.train.*" --outdir models-popularity
@@ -71,7 +71,7 @@ prec@15        0.2301 +/- 0.0011
 prec@20        0.2123 +/- 0.0015
 ```
 
-###2.6 Обучаем и предсказываем при помощи модели SLIM
+### 2.6 Обучаем и предсказываем при помощи модели SLIM
 
 ```
 mrec_train -n4 --model slim --input_format tsv --train "splits/u.data.train.*" --outdir models-slim
